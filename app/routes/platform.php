@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\Page\PageCreateScreen;
+use App\Orchid\Screens\Page\PageEditScreen;
+use App\Orchid\Screens\Page\PageListScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
@@ -22,11 +25,9 @@ use Tabuna\Breadcrumbs\Trail;
 |
 */
 
-// Main
 Route::screen('/main', PlatformScreen::class)
     ->name('platform.main');
 
-// Platform > Profile
 Route::screen('profile', UserProfileScreen::class)
     ->name('platform.profile')
     ->breadcrumbs(function (Trail $trail) {
@@ -35,7 +36,7 @@ Route::screen('profile', UserProfileScreen::class)
             ->push(__('Profile'), route('platform.profile'));
     });
 
-// Platform > System > Users
+// Users
 Route::screen('users/{user}/edit', UserEditScreen::class)
     ->name('platform.systems.users.edit')
     ->breadcrumbs(function (Trail $trail, $user) {
@@ -44,7 +45,6 @@ Route::screen('users/{user}/edit', UserEditScreen::class)
             ->push(__('User'), route('platform.systems.users.edit', $user));
     });
 
-// Platform > System > Users > Create
 Route::screen('users/create', UserEditScreen::class)
     ->name('platform.systems.users.create')
     ->breadcrumbs(function (Trail $trail) {
@@ -53,7 +53,6 @@ Route::screen('users/create', UserEditScreen::class)
             ->push(__('Create'), route('platform.systems.users.create'));
     });
 
-// Platform > System > Users > User
 Route::screen('users', UserListScreen::class)
     ->name('platform.systems.users')
     ->breadcrumbs(function (Trail $trail) {
@@ -62,7 +61,7 @@ Route::screen('users', UserListScreen::class)
             ->push(__('Users'), route('platform.systems.users'));
     });
 
-// Platform > System > Roles > Role
+// Roles
 Route::screen('roles/{role}/edit', RoleEditScreen::class)
     ->name('platform.systems.roles.edit')
     ->breadcrumbs(function (Trail $trail, $role) {
@@ -71,7 +70,6 @@ Route::screen('roles/{role}/edit', RoleEditScreen::class)
             ->push(__('Role'), route('platform.systems.roles.edit', $role));
     });
 
-// Platform > System > Roles > Create
 Route::screen('roles/create', RoleEditScreen::class)
     ->name('platform.systems.roles.create')
     ->breadcrumbs(function (Trail $trail) {
@@ -80,11 +78,35 @@ Route::screen('roles/create', RoleEditScreen::class)
             ->push(__('Create'), route('platform.systems.roles.create'));
     });
 
-// Platform > System > Roles
 Route::screen('roles', RoleListScreen::class)
     ->name('platform.systems.roles')
     ->breadcrumbs(function (Trail $trail) {
         return $trail
             ->parent('platform.index')
             ->push(__('Roles'), route('platform.systems.roles'));
+    });
+
+// Pages
+Route::screen('pages', PageListScreen::class)
+    ->name('platform.pages')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.index')
+            ->push(__('Страницы'), route('platform.pages'));
+    });
+
+Route::screen('pages/create', PageCreateScreen::class)
+    ->name('platform.pages.create')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.pages')
+            ->push(__('Create'), route('platform.pages.create'));
+    });
+
+Route::screen('pages/{page}/edit', PageEditScreen::class)
+    ->name("platform.pages.edit")
+    ->breadcrumbs(function (Trail $trail, $page) {
+        return $trail
+            ->parent('platform.pages')
+            ->push(__('Edit'), route('platform.pages.edit', $page));
     });

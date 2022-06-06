@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('page', function (Blueprint $table) {
             $table->id();
             $table->string("title");
             $table->string('slug')->unique();
             $table->string("template")->default("default");
             $table->text("content")->nullable();
-
-            $table->softDeletes();
+            $table->boolean("visibility_status")->default(true);
+            $table->unsignedBigInteger("parent_id")->nullable();
             $table->timestamps();
+
+            $table->foreign("parent_id")->references("id")->on("page")->onDelete("set null");
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('page');
     }
 };

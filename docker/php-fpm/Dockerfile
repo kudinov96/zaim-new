@@ -18,6 +18,8 @@ RUN set -eux; \
             libxpm-dev \
             libmcrypt-dev \
             libonig-dev \
+            zip \
+            unzip\
             nodejs \
             npm; \
     rm -rf /var/lib/apt/lists/*

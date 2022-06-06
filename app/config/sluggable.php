@@ -87,7 +87,7 @@ return [
      * "similar" slugs.  The closure should return the new unique
      * suffix to append to the slug.
      */
-    
+
     'uniqueSuffix' => null,
 
     /**
@@ -112,7 +112,7 @@ return [
 
     /**
      * An array of slug names that can never be used for this model,
-     * e.g. to prevent collisions with existing routes or controller methods, etc..
+     * e.g. to prevent collisions with existing routes or controllers methods, etc..
      * Defaults to null (i.e. no reserved names).
      * Can be a static array, e.g.:
      *
@@ -146,7 +146,7 @@ return [
      * is probably not a good idea from an SEO point of view.
      * Only set this to true if you understand the possible consequences.
      */
-    
+
     'onUpdate' => false,
 
     /**
