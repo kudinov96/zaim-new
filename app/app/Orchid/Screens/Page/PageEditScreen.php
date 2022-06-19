@@ -4,7 +4,7 @@ namespace App\Orchid\Screens\Page;
 
 use App\Actions\Page\DeletePage;
 use App\Actions\Page\UpdatePage;
-use App\Http\Requests\Page\CreatePageRequest;
+use App\Http\Requests\Page\UpdatePageRequest;
 use App\Models\Page;
 use App\Orchid\Layouts\Page\PageCreateLayout;
 use Illuminate\Http\RedirectResponse;
@@ -79,7 +79,7 @@ class PageEditScreen extends Screen
         ];
     }
 
-    public function update(Page $page, CreatePageRequest $request, UpdatePage $updatePage): RedirectResponse
+    public function update(Page $page, UpdatePageRequest $request, UpdatePage $updatePage): RedirectResponse
     {
         $item = $updatePage->handle($page, $request);
 

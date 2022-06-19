@@ -68,6 +68,7 @@ class PageCreateScreen extends Screen
         ];
     }
 
+
     public function create(CreatePageRequest $request, CreatePage $createPage): RedirectResponse
     {
         $item = $createPage->handle($request);

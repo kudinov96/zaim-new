@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('page', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->string('slug')->unique();
             $table->string("template")->default("default");
             $table->text("content")->nullable();
-            $table->boolean("visibility_status")->default(true);
+            $table->boolean("visibility_status")->default(false);
             $table->unsignedBigInteger("parent_id")->nullable();
             $table->timestamps();
 

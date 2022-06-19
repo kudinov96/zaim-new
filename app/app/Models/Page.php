@@ -3,34 +3,35 @@
 namespace App\Models;
 
 use App\Enums\PageTemplateEnum;
-use App\Models\Traits\UniqueSluggable;
+use App\Models\Traits\SlugFull;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 /**
- * @property integer              $id
- * @property string               $title
- * @property string               $slug
- * @property PageTemplateEnum     $template
- * @property bool                 $visibility_status
- * @property string               $content
- * @property int                  $parent_id
+ * @property int              $id
+ * @property string           $title
+ * @property PageTemplateEnum $template
+ * @property bool             $visibility_status
+ * @property string           $content
+ * @property int              $parent_id
  *
- * @property Carbon               $created_at
- * @property Carbon               $updated_at
+ * @property Carbon           $created_at
+ * @property Carbon           $updated_at
  */
 class Page extends Model
 {
     use HasFactory;
-    use UniqueSluggable;
     use AsSource;
     use Filterable;
     use Attachable;
+    use SlugFull;
 
     protected $table = "page";
 
@@ -50,13 +51,23 @@ class Page extends Model
         "title",
     ];
 
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, "parent_id");
+    }
+
     public function pages(): HasMany
     {
-        return $this->hasMany(Page::class, "parent_id");
+        return $this->hasMany(self::class, "parent_id");
     }
 
     public function childrenPages(): HasMany
     {
         return $this->pages()->with("pages");
+    }
+
+    public function scopePublished(Builder $query): Builder
+    {
+        return $query->where("visibility_status", true);
     }
 }

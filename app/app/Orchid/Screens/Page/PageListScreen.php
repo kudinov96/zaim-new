@@ -6,6 +6,7 @@ use App\Actions\Page\DeletePage;
 use App\Models\Page;
 use App\Orchid\Layouts\Page\PageListLayout;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Toast;
@@ -74,8 +75,10 @@ class PageListScreen extends Screen
         ];
     }
 
-    public function delete(Page $page, DeletePage $deletePage): RedirectResponse
+    public function delete(Request $request, DeletePage $deletePage): RedirectResponse
     {
+        $page = Page::findOrFail($request->page_id);
+
         $deletePage->handle($page);
 
         Toast::success("Страница успешно удалена");

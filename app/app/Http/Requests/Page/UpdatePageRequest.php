@@ -6,6 +6,7 @@ use App\Enums\PageTemplateEnum;
 use App\Models\Page;
 use App\Models\Slug;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
 /**
@@ -16,10 +17,12 @@ use Illuminate\Validation\Rules\Enum;
  * @property int              $parent_id
  * @property bool             $visibility_status
  */
-class CreatePageRequest extends FormRequest
+class UpdatePageRequest extends FormRequest
 {
     public function authorize()
     {
+        $this->page = $this->route("page");
+
         return true;
     }
 
@@ -27,7 +30,7 @@ class CreatePageRequest extends FormRequest
     {
         return [
             "title"             => "required|string",
-            "slug_full"         => "nullable|unique:" . Slug::class . ",slug_full",
+            "slug_full"         => ["required", Rule::unique(Slug::class)->ignore($this->page->slug->id)],
             "template"          => ["required", new Enum(PageTemplateEnum::class)],
             "content"           => "nullable|string",
             "parent_id"         => "nullable|exists:page,id",

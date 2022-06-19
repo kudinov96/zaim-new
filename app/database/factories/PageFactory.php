@@ -9,8 +9,10 @@ class PageFactory extends Factory
 {
     public function definition()
     {
+        $title = $this->faker->sentence(5);
+
         return [
-            "title"             => $this->faker->sentence(5),
+            "title"             => $title,
             "template"          => PageTemplateEnum::DEFAULT,
             "visibility_status" => true,
             "content"           => $this->faker->sentence(5, 100),

@@ -19,7 +19,7 @@ class PageListLayout extends Table
      *
      * @var string
      */
-    protected $target = 'pages';
+    protected $target = "pages";
 
     /**
      * Get the table cells to be displayed.
@@ -61,22 +61,22 @@ class PageListLayout extends Table
                 })
                 ->alignRight()
                 ->width(200),
-            TD::make(__('Actions'))
+            TD::make(__("Actions"))
                 ->align(TD::ALIGN_CENTER)
-                ->width('100px')
+                ->width("100px")
                 ->render(function (Page $page) {
                     return DropDown::make()
-                        ->icon('options-vertical')
+                        ->icon("options-vertical")
                         ->list([
-                            Link::make(__('Edit'))
-                                ->route('platform.pages.edit', $page)
-                                ->icon('pencil'),
+                            Link::make(__("Edit"))
+                                ->route("platform.pages.edit", $page)
+                                ->icon("pencil"),
 
-                            Button::make(__('Delete'))
-                                ->icon('trash')
+                            Button::make(__("Delete"))
+                                ->icon("trash")
                                 ->confirm("Данное действие не сможет быть отменено")
-                                ->method('delete', [
-                                    'page' => $page,
+                                ->method("delete", [
+                                    "page_id" => $page->id,
                                 ]),
                         ]);
                 }),
