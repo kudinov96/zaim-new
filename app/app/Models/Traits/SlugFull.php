@@ -46,14 +46,11 @@ trait SlugFull
 
     protected static function generateSlugFull(string $title, ?int $parent_id = null, ?array &$arr = []): string
     {
-        $arr[] = Str::slug($title);
+        $arr[]  = Str::slug($title);
+        $parent = self::find($parent_id);
 
-        if ($parent_id) {
-            $parent = self::find($parent_id);
-
-            if ($parent) {
-                self::generateSlugFull($parent->slug_single, $parent->parent_id, $arr);
-            }
+        if ($parent) {
+            self::generateSlugFull($parent->slug_single, $parent->parent_id, $arr);
         }
 
         return implode("/", array_reverse($arr));
