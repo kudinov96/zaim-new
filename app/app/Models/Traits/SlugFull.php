@@ -14,7 +14,17 @@ use Illuminate\Support\Str;
 */
 trait SlugFull
 {
-    public function initializeAppendAttributeTrait(): void
+    public function slug(): HasOne
+    {
+        return $this->hasOne(Slug::class, "model_id")->where("model", self::class);
+    }
+
+    public function canUpdateSlug(): bool
+    {
+        return Carbon::now() > $this->created_at->addHours(2);
+    }
+
+    protected function initializeAppendAttributeTrait(): void
     {
         $this->append("slug_single");
         $this->append("slug_full");
@@ -32,16 +42,6 @@ trait SlugFull
         return Attribute::make(
             get: fn () => $this->slug->slug_full,
         );
-    }
-
-    public function slug(): HasOne
-    {
-        return $this->hasOne(Slug::class, "model_id")->where("model", self::class);
-    }
-
-    public function canUpdateSlug(): bool
-    {
-        return Carbon::now() > $this->created_at->addHours(2);
     }
 
     protected static function generateSlugFull(string $title, ?int $parent_id = null, ?array &$arr = []): string
