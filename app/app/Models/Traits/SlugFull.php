@@ -6,7 +6,6 @@ use App\Models\Slug;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Str;
 
 /**
 * @property string $slug_single
@@ -42,17 +41,5 @@ trait SlugFull
         return Attribute::make(
             get: fn () => $this->slug->slug_full,
         );
-    }
-
-    protected static function generateSlugFull(string $title, ?int $parent_id = null, ?array &$arr = []): string
-    {
-        $arr[]  = Str::slug($title);
-        $parent = self::find($parent_id);
-
-        if ($parent) {
-            self::generateSlugFull($parent->slug_single, $parent->parent_id, $arr);
-        }
-
-        return implode("/", array_reverse($arr));
     }
 }

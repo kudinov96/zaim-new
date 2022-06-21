@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * @property int    $id
@@ -28,5 +29,16 @@ class Slug extends Model
         return Attribute::make(
             get: fn () => last(explode("/", $this->slug_full)),
         );
+    }
+
+    protected static function generateSlugFull(string $title, ?Model $parent = null, ?array &$arr = []): string
+    {
+        $arr[]  = Str::slug($title);
+
+        if ($parent) {
+            self::generateSlugFull($parent->slug_single, $parent->parent, $arr);
+        }
+
+        return implode("/", array_reverse($arr));
     }
 }

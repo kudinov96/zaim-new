@@ -40,8 +40,10 @@ class UpdatePageRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        $parent = Page::find($this->parent_id);
+
         $this->merge([
-            "slug_full" => Page::generateSlugFull($this->slug ?? $this->title, $this->parent_id),
+            "slug_full" => Slug::generateSlugFull($this->slug ?? $this->title, $parent),
         ]);
         $this->offsetUnset("slug");
     }

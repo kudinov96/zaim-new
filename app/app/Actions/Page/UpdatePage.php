@@ -19,8 +19,11 @@ class UpdatePage
 
         $item->save();
 
+        if ($item->slug_full !== $request->slug_full) {
+            (new UpdateChildrenSlug())->handle($item->childrenPages);
+        }
+
         (new UpdateSlug())->handle($item, $request->slug_full);
-        (new UpdateChildrenSlug())->handle($item->childrenPages);
 
         return $item;
     }
