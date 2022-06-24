@@ -10,6 +10,7 @@ use App\Orchid\Layouts\Page\PageCreateLayout;
 use App\Orchid\Layouts\MetatagsLayout;
 use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
@@ -58,6 +59,10 @@ class PageEditScreen extends Screen
     public function commandBar(): array
     {
         return [
+            Link::make("Перейти")
+                ->icon("arrow-right-circle")
+                ->target("blank")
+                ->route("slug", ["slug" => $this->page->slug_full]),
             Button::make("Удалить")
                 ->method("delete")
                 ->icon("trash")

@@ -23,7 +23,7 @@ class SlugController extends Controller
 
     private function getPage(?string $slug = null)
     {
-        if (!$slug || $slug === Page::HOME_SLUG) {
+        if (!$slug) {
             return Page::homePage();
         }
 

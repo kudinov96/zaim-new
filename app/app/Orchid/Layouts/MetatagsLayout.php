@@ -24,14 +24,14 @@ class MetatagsLayout extends Rows
             Input::make("meta.meta_title")
                 ->title("Title")
                 ->type("text")
-                ->value($model->getMeta("meta_title") ?? "")
+                ->value($model && $model->getMeta("meta_title") ? $model->getMeta("meta_title") : "")
                 ->required(),
             TextArea::make("meta.meta_description")
                 ->title("Description")
-                ->value($model->getMeta("meta_description") ?? "")
+                ->value($model && $model->getMeta("meta_description") ? $model->getMeta("meta_description") : "")
                 ->required(),
             TextArea::make("meta.meta_keywords")
-                ->value($model->getMeta("meta_keywords") ?? "")
+                ->value($model && $model->getMeta("meta_keywords") ? $model->getMeta("meta_keywords") : "")
                 ->title("Keywords"),
         ];
     }

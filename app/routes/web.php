@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SlugController;
+use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("{slug?}", [SlugController::class, "find"])->where("slug", ".*");
+Route::get("/" . Page::HOME_SLUG, function () {
+    abort(404);
+});
+
+Route::get("{slug?}", [SlugController::class, "find"])->where("slug", ".*")->name("slug");

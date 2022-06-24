@@ -48,10 +48,6 @@ class Page extends Model
         "template" => PageTemplateEnum::class,
     ];
 
-    protected $with = [
-        "meta",
-    ];
-
     protected array $allowedSorts = [
         "visibility_status",
     ];

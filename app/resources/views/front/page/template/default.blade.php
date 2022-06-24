@@ -1,1 +1,1 @@
-<?php
+@extends('front.layout.base')

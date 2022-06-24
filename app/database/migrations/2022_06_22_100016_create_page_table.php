@@ -19,7 +19,7 @@ return new class extends Migration
         Schema::create("page", function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->string("template")->default("default");
+            $table->string("template")->default(PageTemplateEnum::DEFAULT->value);
             $table->text("content")->nullable();
             $table->boolean("visibility_status")->default(false);
             $table->unsignedBigInteger("parent_id")->nullable();
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign("parent_id")->references("id")->on("page")->onDelete("set null");
         });
 
-        Page::create([
+        $page = Page::create([
             "id"                => Page::HOME_ID,
             "title"             => "Home page",
             "template"          => PageTemplateEnum::HOME,
@@ -37,7 +37,7 @@ return new class extends Migration
 
         Slug::create([
             "slug_full" => Page::HOME_SLUG,
-            "model_id"  => 1,
+            "model_id"  => $page->id,
             "model"     => Page::class,
         ]);
     }

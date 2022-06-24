@@ -1,0 +1,25 @@
+.header{
+    border-bottom: 1px solid $gray;
+    &>.container{
+        display: flex;
+        align-items: center;
+        height: 80px;
+    }
+}
+
+.header__menu{
+    margin-left: auto;
+    ul{
+        list-style: none;
+        display: flex;
+        li{
+            margin-right: 30px;
+            &:last-child{
+                margin-right: 0;
+            }
+            a{
+                color: #000;
+            }
+        }
+    }
+}

@@ -5,6 +5,7 @@ namespace App\Orchid\Layouts\Page;
 use App\Enums\PageTemplateEnum;
 use App\Models\Page;
 use App\Orchid\Fields\TinyMce;
+use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Select;
@@ -27,7 +28,8 @@ class PageCreateLayout extends Rows
             CheckBox::make("visibility_status")
                 ->title("Опубликовано")
                 ->value($page->visibility_status ?? false)
-                ->sendTrueOrFalse(),
+                ->sendTrueOrFalse()
+                ->disabled(!Auth::user()->inRole("admin")),
             Input::make("title")
                 ->title("Заголовок")
                 ->type("text")
