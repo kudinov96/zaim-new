@@ -15,6 +15,7 @@ use Illuminate\Validation\Rules\Enum;
  * @property string           $content
  * @property int              $parent_id
  * @property bool             $visibility_status
+ * @property array            $meta
  */
 class CreatePageRequest extends FormRequest
 {
@@ -26,12 +27,16 @@ class CreatePageRequest extends FormRequest
     public function rules()
     {
         return [
-            "title"             => "required|string",
-            "slug_full"         => "nullable|unique:" . Slug::class . ",slug_full",
-            "template"          => ["required", new Enum(PageTemplateEnum::class)],
-            "content"           => "nullable|string",
-            "parent_id"         => "nullable|exists:page,id",
-            "visibility_status" => "required|boolean",
+            "title"                 => "required|string",
+            "slug_full"             => "nullable|unique:" . Slug::class . ",slug_full",
+            "template"              => ["required", new Enum(PageTemplateEnum::class)],
+            "content"               => "nullable|string",
+            "parent_id"             => "nullable|exists:page,id",
+            "visibility_status"     => "required|boolean",
+            "meta.*"                => "nullable|array",
+            "meta.meta_title"       => "required|string",
+            "meta.meta_description" => "required|string",
+            "meta.meta_keywords"    => "nullable|string",
         ];
     }
 

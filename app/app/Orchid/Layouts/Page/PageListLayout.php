@@ -77,7 +77,8 @@ class PageListLayout extends Table
                                 ->confirm("Данное действие не сможет быть отменено")
                                 ->method("delete", [
                                     "page_id" => $page->id,
-                                ]),
+                                ])
+                                ->canSee($page->id !== Page::HOME_ID),
                         ]);
                 }),
         ];

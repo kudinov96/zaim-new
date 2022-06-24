@@ -18,6 +18,11 @@ trait SlugFull
         return $this->hasOne(Slug::class, "model_id")->where("model", self::class);
     }
 
+    public function getClassName(): string
+    {
+        return substr(strrchr(self::class, "\\"), 1);
+    }
+
     public function canUpdateSlug(): bool
     {
         return Carbon::now() > $this->created_at->addHours(2);

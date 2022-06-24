@@ -4,10 +4,12 @@ namespace App\Orchid\Screens\Page;
 
 use App\Actions\Page\CreatePage;
 use App\Http\Requests\Page\CreatePageRequest;
+use App\Orchid\Layouts\MetatagsLayout;
 use App\Orchid\Layouts\Page\PageCreateLayout;
 use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
 class PageCreateScreen extends Screen
@@ -64,6 +66,9 @@ class PageCreateScreen extends Screen
     public function layout(): iterable
     {
         return [
+            Layout::accordion([
+                "Метатеги" => new MetatagsLayout(),
+            ]),
             PageCreateLayout::class,
         ];
     }

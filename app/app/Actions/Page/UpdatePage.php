@@ -25,6 +25,8 @@ class UpdatePage
 
         (new UpdateSlug())->handle($item, $request->slug_full);
 
+        $item->syncMeta($request->meta);
+
         return $item;
     }
 }

@@ -11,8 +11,9 @@ class DeletePage
     {
         $childrenPages = $item->childrenPages;
 
-        $item->delete();
+        $item->purgeMeta();
         $item->slug()->delete();
+        $item->delete();
 
         (new UpdateChildrenSlug())->handle($childrenPages);
     }

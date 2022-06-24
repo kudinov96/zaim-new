@@ -16,6 +16,7 @@ use Illuminate\Validation\Rules\Enum;
  * @property string           $content
  * @property int              $parent_id
  * @property bool             $visibility_status
+ * @property array            $meta
  */
 class UpdatePageRequest extends FormRequest
 {
@@ -29,12 +30,16 @@ class UpdatePageRequest extends FormRequest
     public function rules()
     {
         return [
-            "title"             => "required|string",
-            "slug_full"         => ["required", Rule::unique(Slug::class)->ignore($this->page->slug->id)],
-            "template"          => ["required", new Enum(PageTemplateEnum::class)],
-            "content"           => "nullable|string",
-            "parent_id"         => "nullable|exists:page,id",
-            "visibility_status" => "required|boolean",
+            "title"                 => "required|string",
+            "slug_full"             => ["required", Rule::unique(Slug::class)->ignore($this->page->slug->id)],
+            "template"              => ["required", new Enum(PageTemplateEnum::class)],
+            "content"               => "nullable|string",
+            "parent_id"             => "nullable|exists:page,id",
+            "visibility_status"     => "required|boolean",
+            "meta.*"                => "nullable|array",
+            "meta.meta_title"       => "required|string",
+            "meta.meta_description" => "required|string",
+            "meta.meta_keywords"    => "nullable|string",
         ];
     }
 
@@ -43,7 +48,7 @@ class UpdatePageRequest extends FormRequest
         $parent = Page::find($this->parent_id);
 
         $this->merge([
-            "slug_full" => Slug::generateSlugFull($this->slug ?? $this->title, $parent),
+            "slug_full" => Slug::generateSlugFull($this->slug ?? $this->page->slug_single, $parent),
         ]);
         $this->offsetUnset("slug");
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SlugController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    dd(\App\Models\Page::find(20)->slug_full);
-});
+Route::get("{slug?}", [SlugController::class, "find"])->where("slug", ".*");

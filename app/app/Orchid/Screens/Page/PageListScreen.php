@@ -77,7 +77,7 @@ class PageListScreen extends Screen
 
     public function delete(Request $request, DeletePage $deletePage): RedirectResponse
     {
-        $page = Page::findOrFail($request->page_id);
+        $page = Page::query()->findOrFail($request->page_id);
 
         $deletePage->handle($page);
 

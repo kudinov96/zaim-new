@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
+use Plank\Metable\Metable;
 
 /**
  * @property int              $id
@@ -32,6 +33,10 @@ class Page extends Model
     use Filterable;
     use Attachable;
     use SlugFull;
+    use Metable;
+
+    const HOME_ID   = 1;
+    const HOME_SLUG = "home";
 
     protected $table = "page";
 
@@ -41,6 +46,10 @@ class Page extends Model
 
     protected $casts = [
         "template" => PageTemplateEnum::class,
+    ];
+
+    protected $with = [
+        "meta",
     ];
 
     protected array $allowedSorts = [
@@ -66,8 +75,16 @@ class Page extends Model
         return $this->pages()->with("pages");
     }
 
-    public function scopePublished(Builder $query): Builder
+    public function scopeIsPublished(Builder $query)
     {
-        return $query->where("visibility_status", true);
+        return $query->where([
+            ["id", $this->id],
+            ["visibility_status", true],
+        ])->exists();
+    }
+
+    public static function homePage()
+    {
+        return self::find(self::HOME_ID);
     }
 }

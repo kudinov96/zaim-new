@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -23,6 +24,26 @@ class Slug extends Model
     ];
 
     public $timestamps = false;
+
+    public function page(string $model)
+    {
+        return $this->belongsTo($model, "model_id");
+    }
+
+    public static function findBySlug(string $slug)
+    {
+        return static::whereSlug($slug)->first();
+    }
+
+    public static function findBySlugOrFail(string $slug)
+    {
+        return static::whereSlug($slug)->firstOrFail();
+    }
+
+    public function scopeWhereSlug(Builder $scope, string $slug): Builder
+    {
+        return $scope->where("slug_full", $slug);
+    }
 
     protected function slugSingle(): Attribute
     {

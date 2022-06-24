@@ -7,9 +7,11 @@ use App\Actions\Page\UpdatePage;
 use App\Http\Requests\Page\UpdatePageRequest;
 use App\Models\Page;
 use App\Orchid\Layouts\Page\PageCreateLayout;
+use App\Orchid\Layouts\MetatagsLayout;
 use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
 class PageEditScreen extends Screen
@@ -59,7 +61,8 @@ class PageEditScreen extends Screen
             Button::make("Удалить")
                 ->method("delete")
                 ->icon("trash")
-                ->confirm("Данное действие не сможет быть отменено"),
+                ->confirm("Данное действие не сможет быть отменено")
+                ->canSee($this->page->id !== Page::HOME_ID),
 
             Button::make('Сохранить')
                 ->method('update')
@@ -75,6 +78,9 @@ class PageEditScreen extends Screen
     public function layout(): iterable
     {
         return [
+            Layout::accordion([
+                "Метатеги" => new MetatagsLayout($this->page),
+            ]),
             new PageCreateLayout($this->page),
         ];
     }

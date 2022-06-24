@@ -5,7 +5,6 @@ namespace App\Orchid\Layouts\Page;
 use App\Enums\PageTemplateEnum;
 use App\Models\Page;
 use App\Orchid\Fields\TinyMce;
-use Carbon\Carbon;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Select;
@@ -13,9 +12,9 @@ use Orchid\Screen\Layouts\Rows;
 
 class PageCreateLayout extends Rows
 {
-    public Page $page;
+    public ?Page $page;
 
-    public function __construct(Page $page)
+    public function __construct(?Page $page = null)
     {
         $this->page = $page;
     }
@@ -38,17 +37,18 @@ class PageCreateLayout extends Rows
                 ->title("Слаг")
                 ->type("text")
                 ->value($page->title && $page->slug_single ? $page->slug_single : "")
-                ->disabled($page->created_at && $page->canUpdateSlug()),
+                ->disabled($page->created_at && $page->canUpdateSlug() || $page->id === Page::HOME_ID),
             Select::make("template")
                 ->title("Шаблон")
                 ->options(PageTemplateEnum::getArray())
                 ->value($page->template->value ?? PageTemplateEnum::DEFAULT->value)
                 ->required(),
             Select::make("parent_id")
-                ->fromQuery(Page::where("id", "!=", $page->id), "title")
+                ->fromQuery(Page::whereNotIn("id", [$page->id ?? 0, Page::HOME_ID]), "title")
                 ->value($page->parent_id)
                 ->empty()
-                ->title("Родительская страница"),
+                ->title("Родительская страница")
+                ->canSee($page->id !== Page::HOME_ID),
             TinyMce::make("content")
                 ->title("Content")
                 ->value($page->content ?? ""),
