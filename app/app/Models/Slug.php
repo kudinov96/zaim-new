@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 /**
  * @property int    $id
@@ -25,9 +27,9 @@ class Slug extends Model
 
     public $timestamps = false;
 
-    public function page(string $model)
+    public function post()
     {
-        return $this->belongsTo($model, "model_id");
+        return $this->belongsTo($this->model, "model_id");
     }
 
     public static function findBySlug(string $slug)

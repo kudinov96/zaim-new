@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PageTemplateEnum;
-use App\Models\Traits\SlugFull;
+use App\Models\Traits\Sluggable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,7 +32,7 @@ class Page extends Model
     use AsSource;
     use Filterable;
     use Attachable;
-    use SlugFull;
+    use Sluggable;
     use Metable;
 
     const HOME_ID   = 1;

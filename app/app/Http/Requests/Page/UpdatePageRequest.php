@@ -16,7 +16,7 @@ use Illuminate\Validation\Rules\Enum;
  * @property string           $content
  * @property int              $parent_id
  * @property bool             $visibility_status
- * @property array            $meta
+ * @property array            $metas
  */
 class UpdatePageRequest extends FormRequest
 {

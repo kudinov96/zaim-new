@@ -1,2 +1,26 @@
 User-agent: *
-Disallow:
+Disallow: /
+Disallow: */index.php
+Disallow: *?*
+Disallow: *&*
+Disallow: /dashboard/
+Disallow: /storage/
+
+User-Agent: Yandex
+Disallow: /
+Disallow: */index.php
+Disallow: *?*
+Disallow: *&*
+Disallow: /dashboard/
+Disallow: /storage/
+Host: https://localhost/
+
+User-Agent: Googlebot
+Disallow: /
+Disallow: */index.php
+Disallow: *?*
+Disallow: *&*
+Disallow: /dashboard/
+Disallow: /storage/
+
+Sitemap: https://localhost/wp-sitemap.xml

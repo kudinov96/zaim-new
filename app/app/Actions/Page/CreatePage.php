@@ -5,6 +5,7 @@ namespace App\Actions\Page;
 use App\Actions\Slug\CreateSlug;
 use App\Http\Requests\Page\CreatePageRequest;
 use App\Models\Page;
+use Illuminate\Support\Facades\DB;
 
 class CreatePage
 {
@@ -17,11 +18,12 @@ class CreatePage
         $item->parent_id         = $request->parent_id;
         $item->visibility_status = $request->visibility_status;
 
-        $item->save();
+        DB::transaction(function () use ($item, $request) {
+            $item->save();
+            $item->setManyMeta($request->metas);
 
-        (new CreateSlug())->handle($item, $request->slug_full);
-
-        $item->setManyMeta($request->metas);
+            (new CreateSlug())->handle($item, $request->slug_full);
+        });
 
         return $item;
     }

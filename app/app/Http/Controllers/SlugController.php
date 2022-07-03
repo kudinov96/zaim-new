@@ -29,6 +29,6 @@ class SlugController extends Controller
 
         $slug = Slug::findBySlugOrFail($slug);
 
-        return $slug->page($slug->model)->first();
+        return $slug->post()->first();
     }
 }

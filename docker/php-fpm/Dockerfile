@@ -6,6 +6,7 @@ RUN set -eux; \
     apt-get upgrade -y; \
     apt-get install -y --no-install-recommends \
             curl \
+            exif \
             git \
             libmemcached-dev \
             libz-dev \
@@ -42,6 +43,8 @@ RUN set -eux; \
 RUN pecl update-channels && pecl install xdebug && \
     docker-php-ext-enable xdebug \
     && echo  xdebug.mode=debug >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+RUN docker-php-ext-install exif
 
 ENV XDEBUG_CONFIG="client_host=host.docker.internal client_port=9001 start_with_request=yes"
 ENV COMPOSER_ALLOW_SUPERUSER=1

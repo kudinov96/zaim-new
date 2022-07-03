@@ -2,16 +2,19 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Page;
 use App\Models\Slug;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 /**
 * @property string $slug_single
 * @property string $slug_full
 */
-trait SlugFull
+trait Sluggable
 {
     public function slug(): HasOne
     {
@@ -46,5 +49,36 @@ trait SlugFull
         return Attribute::make(
             get: fn () => $this->slug->slug_full,
         );
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function ($post) {
+            $post->generateSitemap();
+        });
+
+        static::updated(function($post) {
+            $post->generateSitemap();
+        });
+
+        static::deleted(function($post) {
+            $post->generateSitemap();
+        });
+    }
+
+    private function generateSitemap(): void
+    {
+        $sitemap = Sitemap::create();
+        $sitemap->add(Url::create("/")->setLastModificationDate(Page::homePage()->updated_at));
+
+        foreach (Slug::all() as $slug) {
+            if ($slug->slug_full === Page::HOME_SLUG) {
+                continue;
+            }
+
+            $sitemap->add(Url::create($slug->slug_full)->setLastModificationDate($slug->post->updated_at));
+        }
+
+        $sitemap->writeToFile("sitemap.xml");
     }
 }

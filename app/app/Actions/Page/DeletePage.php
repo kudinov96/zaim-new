@@ -4,6 +4,7 @@ namespace App\Actions\Page;
 
 use App\Actions\Slug\UpdateChildrenSlug;
 use App\Models\Page;
+use Illuminate\Support\Facades\DB;
 
 class DeletePage
 {
@@ -11,10 +12,12 @@ class DeletePage
     {
         $childrenPages = $item->childrenPages;
 
-        $item->purgeMeta();
-        $item->slug()->delete();
-        $item->delete();
+        DB::transaction(function () use ($item, $childrenPages) {
+            $item->purgeMeta();
+            $item->slug()->delete();
+            $item->delete();
 
-        (new UpdateChildrenSlug())->handle($childrenPages);
+            (new UpdateChildrenSlug())->handle($childrenPages);
+        });
     }
 }

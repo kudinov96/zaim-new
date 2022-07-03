@@ -9,7 +9,7 @@ class PageController extends Controller
     public function show(Page $page)
     {
         return response()->view("front.page.template.{$page->template->value}", [
-            "page"  => $page,
+            "post"  => $page,
             "metas" => $page->getAllMeta(),
         ]);
     }

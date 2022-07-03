@@ -11,7 +11,8 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "orchid/platform": "^12.5",
-        "plank/laravel-metable": "^5.2"
+        "plank/laravel-metable": "^5.2",
+        "spatie/laravel-sitemap": "^6.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

@@ -6,6 +6,7 @@ use App\Actions\Slug\UpdateChildrenSlug;
 use App\Actions\Slug\UpdateSlug;
 use App\Http\Requests\Page\UpdatePageRequest;
 use App\Models\Page;
+use Illuminate\Support\Facades\DB;
 
 class UpdatePage
 {
@@ -17,15 +18,17 @@ class UpdatePage
         $item->parent_id         = $request->parent_id;
         $item->visibility_status = $request->visibility_status;
 
-        $item->save();
+        DB::transaction(function () use ($item, $request) {
+            $item->save();
+            $item->syncMeta($request->metas);
 
-        if ($item->slug_full !== $request->slug_full) {
-            (new UpdateChildrenSlug())->handle($item->childrenPages);
-        }
+            if ($item->slug_full !== $request->slug_full) {
+                (new UpdateChildrenSlug())->handle($item->childrenPages);
+            }
 
-        (new UpdateSlug())->handle($item, $request->slug_full);
+            (new UpdateSlug())->handle($item, $request->slug_full);
+        });
 
-        $item->syncMeta($request->meta);
 
         return $item;
     }
