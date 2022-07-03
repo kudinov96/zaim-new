@@ -2,6 +2,102 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./resources/js/controllers/repeater.js":
+/*!**********************************************!*\
+  !*** ./resources/js/controllers/repeater.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _default)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var _default = /*#__PURE__*/function (_window$Controller) {
+  _inherits(_default, _window$Controller);
+
+  var _super = _createSuper(_default);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(_default, [{
+    key: "connect",
+    value: function connect() {
+      this.section = document.getElementById(this.element.querySelector('.repeater').id);
+      this.section_blocks = this.section.querySelector(".repeater__blocks");
+      this.count = this.data.get("count");
+      this.name = this.data.get("name");
+      this.layout = this.data.get("layout");
+      this.urlFetch = this.data.get("url-fetch");
+      this.urlAdd = this.data.get("url-add");
+      this.value = this.data.get("value");
+      this.fetchBlocks();
+    }
+  }, {
+    key: "fetchBlocks",
+    value: function fetchBlocks() {
+      var _this = this;
+
+      axios.post(this.urlFetch, {
+        layout: this.layout,
+        name: this.name,
+        value: this.value
+      }).then(function (response) {
+        _this.section_blocks.insertAdjacentHTML("afterbegin", response.data);
+      });
+    }
+  }, {
+    key: "addBlock",
+    value: function addBlock() {
+      var _this2 = this;
+
+      axios.post(this.urlAdd, {
+        layout: this.layout,
+        name: this.name,
+        count: this.count++
+      }).then(function (response) {
+        _this2.section_blocks.insertAdjacentHTML("beforeend", response.data);
+      });
+    }
+  }, {
+    key: "removeBlock",
+    value: function removeBlock(event) {
+      event.currentTarget.closest(".repeater__blocks-item").remove();
+    }
+  }]);
+
+  return _default;
+}(window.Controller);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/controllers/tinymce.js":
 /*!*********************************************!*\
   !*** ./resources/js/controllers/tinymce.js ***!
@@ -149,8 +245,11 @@ var _default = /*#__PURE__*/function (_window$Controller) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controllers_tinymce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controllers/tinymce */ "./resources/js/controllers/tinymce.js");
+/* harmony import */ var _controllers_repeater__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controllers/repeater */ "./resources/js/controllers/repeater.js");
+
 
 application.register("tinymce", _controllers_tinymce__WEBPACK_IMPORTED_MODULE_0__["default"]);
+application.register("repeater", _controllers_repeater__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 /***/ }),
 

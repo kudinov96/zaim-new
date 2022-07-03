@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Orchid\Fields;
 
 use Orchid\Screen\Field;
@@ -26,32 +24,11 @@ class TinyMce extends Field
      * @var array
      */
     protected $inlineAttributes = [
-        'accept',
-        'accesskey',
-        'autocomplete',
-        'autofocus',
-        'checked',
-        'disabled',
-        'form',
-        'formaction',
-        'formenctype',
-        'formmethod',
-        'formnovalidate',
-        'formtarget',
-        'list',
-        'max',
-        'maxlength',
-        'min',
         'name',
-        'pattern',
+        'disabled',
         'placeholder',
         'readonly',
         'required',
-        'size',
-        'src',
-        'step',
-        'tabindex',
-        'type',
         'value',
         'height',
     ];
@@ -61,7 +38,7 @@ class TinyMce extends Field
      *
      * @return self
      */
-    public static function make(string $name = null):Field
+    public static function make(string $name = null): Field
     {
         $editor = new static();
         $editor->language($editor->get('language') ?? app()->getLocale());

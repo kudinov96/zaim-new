@@ -28,21 +28,26 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
-            Menu::make('Страницы')
-                ->icon('list')
-                ->permission('platform.pages')
-                ->route('platform.pages'),
+            Menu::make("Страницы")
+                ->icon("list")
+                ->permission("platform.pages")
+                ->route("platform.pages"),
 
-            Menu::make(__('Users'))
-                ->icon('user')
-                ->route('platform.systems.users')
-                ->permission('platform.systems.users')
-                ->title(__('Access rights')),
+            Menu::make("Настройки")
+                ->icon("settings")
+                ->permission("platform.options")
+                ->route("platform.options"),
 
-            Menu::make(__('Roles'))
-                ->icon('lock')
-                ->route('platform.systems.roles')
-                ->permission('platform.systems.roles'),
+            Menu::make(__("Users"))
+                ->icon("user")
+                ->route("platform.systems.users")
+                ->permission("platform.systems.users")
+                ->title(__("Access rights")),
+
+            Menu::make(__("Roles"))
+                ->icon("lock")
+                ->route("platform.systems.roles")
+                ->permission("platform.systems.roles"),
         ];
     }
 
@@ -52,9 +57,9 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerProfileMenu(): array
     {
         return [
-            Menu::make('Profile')
-                ->route('platform.profile')
-                ->icon('user'),
+            Menu::make("Profile")
+                ->route("platform.profile")
+                ->icon("user"),
         ];
     }
 
@@ -64,12 +69,15 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerPermissions(): array
     {
         return [
-            ItemPermission::group(__('System'))
-                ->addPermission('platform.systems.roles', __('Roles'))
-                ->addPermission('platform.systems.users', __('Users')),
+            ItemPermission::group(__("System"))
+                ->addPermission("platform.systems.roles", __("Roles"))
+                ->addPermission("platform.systems.users", __("Users")),
 
-            ItemPermission::group(__('Content'))
-                ->addPermission('platform.pages', __('Страницы')),
+            ItemPermission::group(__("Content"))
+                ->addPermission("platform.pages", __("Страницы")),
+
+            ItemPermission::group(__("Настройки"))
+                ->addPermission("platform.options", __("Настройки")),
         ];
     }
 }

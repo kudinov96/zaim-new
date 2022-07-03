@@ -21,16 +21,16 @@ class MetatagsLayout extends Rows
         $model = $this->model;
 
         return [
-            Input::make("meta.meta_title")
+            Input::make("metas.meta_title")
                 ->title("Title")
                 ->type("text")
                 ->value($model && $model->getMeta("meta_title") ? $model->getMeta("meta_title") : "")
                 ->required(),
-            TextArea::make("meta.meta_description")
+            TextArea::make("metas.meta_description")
                 ->title("Description")
                 ->value($model && $model->getMeta("meta_description") ? $model->getMeta("meta_description") : "")
                 ->required(),
-            TextArea::make("meta.meta_keywords")
+            TextArea::make("metas.meta_keywords")
                 ->value($model && $model->getMeta("meta_keywords") ? $model->getMeta("meta_keywords") : "")
                 ->title("Keywords"),
         ];

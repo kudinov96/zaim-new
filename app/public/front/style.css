@@ -75,6 +75,9 @@ input {
 .header__menu ul li a {
   color: #000;
 }
+.header__menu ul li.active a {
+  text-decoration: underline;
+}
 
 .content-style h1, .content-style h2, .content-style h3 {
   margin-bottom: 15px;

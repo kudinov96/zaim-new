@@ -21,22 +21,18 @@
                     gidbankov.ru
                 </a>
             </div>
-            <div class="header__menu">
-                <ul>
-                    <li>
-                        <a href="#">Займы</a>
-                    </li>
-                    <li>
-                        <a href="#">Кредиты</a>
-                    </li>
-                    <li>
-                        <a href="#">Кредитные карты</a>
-                    </li>
-                    <li>
-                        <a href="#">Рефинансирование</a>
-                    </li>
-                </ul>
-            </div>
+
+            @if($options->has("menu"))
+                <div class="header__menu">
+                    <ul>
+                        @foreach($options["menu"] as $menu_item)
+                            <li @if($site_path === $menu_item["link"]) class="active" @endif>
+                                <a href="/{{ $menu_item["link"] }}">{{ $menu_item["text"] }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
     </header>
 

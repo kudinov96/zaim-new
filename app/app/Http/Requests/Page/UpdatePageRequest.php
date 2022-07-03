@@ -30,16 +30,16 @@ class UpdatePageRequest extends FormRequest
     public function rules()
     {
         return [
-            "title"                 => "required|string",
-            "slug_full"             => ["required", Rule::unique(Slug::class)->ignore($this->page->slug->id)],
-            "template"              => ["required", new Enum(PageTemplateEnum::class)],
-            "content"               => "nullable|string",
-            "parent_id"             => "nullable|exists:page,id",
-            "visibility_status"     => "required|boolean",
-            "meta.*"                => "nullable|array",
-            "meta.meta_title"       => "required|string",
-            "meta.meta_description" => "required|string",
-            "meta.meta_keywords"    => "nullable|string",
+            "title"                  => "required|string",
+            "slug_full"              => ["required", Rule::unique(Slug::class)->ignore($this->page->slug->id)],
+            "template"               => ["required", new Enum(PageTemplateEnum::class)],
+            "content"                => "nullable|string",
+            "parent_id"              => "nullable|exists:page,id",
+            "visibility_status"      => "required|boolean",
+            "metas.*"                => "nullable|array",
+            "metas.meta_title"       => "required|string",
+            "metas.meta_description" => "required|string",
+            "metas.meta_keywords"    => "nullable|string",
         ];
     }
 

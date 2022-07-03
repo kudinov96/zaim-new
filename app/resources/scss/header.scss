@@ -20,6 +20,11 @@
             a{
                 color: #000;
             }
+            &.active{
+                a{
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }

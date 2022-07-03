@@ -21,7 +21,7 @@ class CreatePage
 
         (new CreateSlug())->handle($item, $request->slug_full);
 
-        $item->setManyMeta($request->meta);
+        $item->setManyMeta($request->metas);
 
         return $item;
     }
