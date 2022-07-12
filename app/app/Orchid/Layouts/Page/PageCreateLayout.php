@@ -29,7 +29,7 @@ class PageCreateLayout extends Rows
                 ->title("Опубликовано")
                 ->value($page->visibility_status ?? false)
                 ->sendTrueOrFalse()
-                ->disabled(!Auth::user()->inRole("admin")),
+                ->canSee(Auth::user()->inRole("admin")),
             Input::make("title")
                 ->title("Заголовок")
                 ->type("text")

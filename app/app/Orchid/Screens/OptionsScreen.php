@@ -9,6 +9,7 @@ use App\Orchid\Layouts\OptionsLayout;
 use App\Orchid\Layouts\Repeaters\MenuRepeater;
 use Illuminate\Support\Collection;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
@@ -56,6 +57,10 @@ class OptionsScreen extends Screen
                             ->layout(MenuRepeater::class)
                             ->value($this->options["menu"] ?? null)
                             ->title("Меню"),
+                        TextArea::make("options.code_head")
+                            ->value($this->options["code_head"] ?? null)
+                            ->rows(10)
+                            ->title("Код в <head>"),
                     ]),
             ]),
         ];

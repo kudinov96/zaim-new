@@ -6,11 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield("meta_title", $metas["meta_title"] ?? "")</title>
     <meta name="description" content="@yield("meta_description", $metas["meta_description"] ?? "")">
-    @if (isset($metas) && $metas["meta_keywords"])
+    @if (isset($metas["meta_keywords"]))
         <meta name="keywords" content="{{ $metas["meta_keywords"] }}">
     @endif
+    @if (isset($options["code_head"]))
+        {!! $options["code_head"] !!}
+    @endif
+    <title>@yield("meta_title", $metas["meta_title"] ?? "")</title>
     <link rel="stylesheet" href="{{ asset("front/style.css") }}">
 </head>
 <body>

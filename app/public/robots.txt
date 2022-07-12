@@ -1,26 +1,29 @@
 User-agent: *
-Disallow: /
 Disallow: */index.php
 Disallow: *?*
 Disallow: *&*
-Disallow: /dashboard/
 Disallow: /storage/
+Disallow: /dashboard/
+Disallow: /front/
+Disallow: /vendor/
 
 User-Agent: Yandex
-Disallow: /
 Disallow: */index.php
 Disallow: *?*
 Disallow: *&*
-Disallow: /dashboard/
 Disallow: /storage/
-Host: https://localhost/
+Disallow: /dashboard/
+Disallow: /front/
+Disallow: /vendor/
+Host: https://gidbankov.ru/
 
 User-Agent: Googlebot
-Disallow: /
 Disallow: */index.php
 Disallow: *?*
 Disallow: *&*
-Disallow: /dashboard/
 Disallow: /storage/
+Disallow: /dashboard/
+Disallow: /front/
+Disallow: /vendor/
 
-Sitemap: https://localhost/wp-sitemap.xml
+Sitemap: https://gidbankov.ru/sitemap.xml

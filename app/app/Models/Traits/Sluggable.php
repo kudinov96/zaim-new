@@ -69,7 +69,10 @@ trait Sluggable
     private function generateSitemap(): void
     {
         $sitemap = Sitemap::create();
-        $sitemap->add(Url::create("/")->setLastModificationDate(Page::homePage()->updated_at));
+        $sitemap->add(
+            Url::create("/")
+                ->setLastModificationDate(Page::homePage()->updated_at)
+                ->setPriority(1));
 
         foreach (Slug::all() as $slug) {
             if ($slug->slug_full === Page::HOME_SLUG) {
