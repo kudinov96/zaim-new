@@ -75,7 +75,7 @@ trait Sluggable
                 ->setPriority(1));
 
         foreach (Slug::all() as $slug) {
-            if ($slug->slug_full === Page::HOME_SLUG) {
+            if ($slug->slug_full === Page::HOME_SLUG || !$slug->post->isPublished()) {
                 continue;
             }
 

@@ -1,6 +1,8 @@
 @extends('front.layout.base')
 
 @section("content")
-    <h1>{{ $post->title }}</h1>
-    {!! $post->content !!}
+    <div class="content-style">
+        <h1>{{ $post->title }}</h1>
+        {!! $post->content !!}
+    </div>
 @endsection

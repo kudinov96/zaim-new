@@ -14,7 +14,7 @@
         {!! $options["code_head"] !!}
     @endif
     <title>@yield("meta_title", $metas["meta_title"] ?? "")</title>
-    <link rel="stylesheet" href="{{ asset("front/style.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/style.css?v=2") }}">
 </head>
 <body>
     <header class="header">
@@ -41,9 +41,7 @@
 
     <div class="content-main">
         <div class="container">
-            <div class="content-style">
-                @yield("content")
-            </div>
+            @yield("content")
         </div>
     </div>
 
