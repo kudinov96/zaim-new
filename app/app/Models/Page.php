@@ -79,6 +79,11 @@ class Page extends Model
         ])->exists();
     }
 
+    public function scopePublished(Builder $query)
+    {
+        return $query->where("visibility_status", true);
+    }
+
     public static function homePage()
     {
         return self::find(self::HOME_ID);

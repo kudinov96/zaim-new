@@ -15,7 +15,7 @@ Disallow: /storage/
 Disallow: /dashboard/
 Disallow: /front/
 Disallow: /vendor/
-Host: https://gidbankov.ru/
+Host: {{ $url }}/
 
 User-Agent: Googlebot
 Disallow: */index.php
@@ -26,4 +26,4 @@ Disallow: /dashboard/
 Disallow: /front/
 Disallow: /vendor/
 
-Sitemap: https://gidbankov.ru/sitemap.xml
+Sitemap: {{ $url }}/sitemap.xml
